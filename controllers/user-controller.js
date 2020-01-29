@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 
 // SIGNUP
 router.post('/signup', (req, res) => {
-    // console.log('request -->', req)
     User.create({
-        queenName: req.body.user.queenName,
         email: req.body.user.email,
         password: bcrypt.hashSync(req.body.user.password,13)
     })
@@ -53,7 +51,7 @@ router.post('/signin', (req, res) => {
         } else {
             res.status(501).send({error: "Failed to Authenticate. No such user"})
         }
-    }, err => res.send(501).send({error: "Failed to process."}))
+    }, err => res.send(500).send({error: "Failed to process."}))
     
 })
 

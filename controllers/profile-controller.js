@@ -9,9 +9,11 @@ router.get('/', (req, res)=> {
     .catch(err => res.status(500).json({error: err}))
 
 })
-// router.get('/:name', (req, res) => {
-//     Profile.findOne({ where: {queenName: req.params.name}})
-// })
+router.get('/myprofile', ValidateSession, (req, res) => {
+    Profile.findOne({ where: {id: req.params.id}})
+    .then(profile => res.status(200).json(profile))
+    .then(err=> res.status(500).json(re.errors))
+})
 
 router.post('/create', ValidateSession, (req, res)=> {
     const profileInfo = {
@@ -22,6 +24,7 @@ router.post('/create', ValidateSession, (req, res)=> {
         about: req.body.about,
         accolades: req.body.accolades,
         upcomingShows: req.body.upcomingShows
+        
     }
     Profile.create(profileInfo)
     .then(profile => res.status(200).json(profile))
@@ -40,6 +43,7 @@ router.delete('/:id', ValidateSession, (req, res) => {
     .then(profile => res.status(200).json(profile))
     .catch(err => res.json({error: err}))
 })
+
 
 
 module.exports = router;
