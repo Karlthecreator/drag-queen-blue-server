@@ -6,8 +6,8 @@ let user = require('./controllers/user-controller');
 let profile = require('./controllers/profile-controller');
 
 app.use(require('./middleware/headers'))
-sequelize.sync();
-// sequelize.sync({force: true})
+// sequelize.sync();
+sequelize.sync({force: true})
 
 app.use(express.json());
 
