@@ -5,11 +5,11 @@ let sequelize = require('./db');
 let user = require('./controllers/user-controller');
 let profile = require('./controllers/profile-controller');
 
+app.use(require('./middleware/headers'))
 sequelize.sync();
 // sequelize.sync({force: true})
 
 app.use(express.json());
-app.use(require('./middleware/headers'))
 
 
 app.use('/user', user);

@@ -9,10 +9,11 @@ router.get('/', (req, res)=> {
     .catch(err => res.status(500).json({error: err}))
 
 })
+
 router.get('/myprofile', ValidateSession, (req, res) => {
-    Profile.findOne({ where: {id: req.params.id}})
+    Profile.findOne({ where: {userEmail: req.user.email}})
     .then(profile => res.status(200).json(profile))
-    .then(err=> res.status(500).json(re.errors))
+    .catch(err=> res.status(500).json(req.errors))
 })
 
 router.post('/create', ValidateSession, (req, res)=> {
@@ -23,7 +24,8 @@ router.post('/create', ValidateSession, (req, res)=> {
         currentTown: req.body.currentTown,
         about: req.body.about,
         accolades: req.body.accolades,
-        upcomingShows: req.body.upcomingShows
+        upcomingShows: req.body.upcomingShows,
+        userEmail: req.user.email
         
     }
     Profile.create(profileInfo)
@@ -32,14 +34,15 @@ router.post('/create', ValidateSession, (req, res)=> {
 
 })
 
-router.put('/:id', ValidateSession, (req, res)=> {
-    Profile.update(req.body , {where: {id: req.params.id}})
+router.put('/myprofile', ValidateSession, (req, res)=> {
+    Profile.update(req.body, {where: {userEmail: req.user.email}})
+    
     .then(profile => res.status(200).json(profile))
     .catch(err => res.json({error:err}))
 })
 
-router.delete('/:id', ValidateSession, (req, res) => {
-    Profile.destroy({ where: {id: req.params.id}})
+router.delete('/myprofile', ValidateSession, (req, res) => {
+    Profile.destroy({ where: {userEmail: req.user.email}})
     .then(profile => res.status(200).json(profile))
     .catch(err => res.json({error: err}))
 })

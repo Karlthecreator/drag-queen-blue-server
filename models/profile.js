@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         upcomingShows: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        userEmail: {
+            type:DataTypes.STRING,
+            allowNull: false
         }
        
     })
