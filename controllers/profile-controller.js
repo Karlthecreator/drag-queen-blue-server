@@ -25,7 +25,8 @@ router.post('/create', ValidateSession, (req, res)=> {
         about: req.body.about,
         accolades: req.body.accolades,
         upcomingShows: req.body.upcomingShows,
-        userEmail: req.user.email
+        userEmail: req.user.email,
+        image: req.body.image,
         
     }
     Profile.create(profileInfo)
